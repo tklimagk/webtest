@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Odpočítávání do konce roku</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f0f0f0;
+            margin: 0;
+            flex-direction: column;
+        }
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        #countdown {
+            font-size: 3em;
+            color: #007bff;
+            font-weight: bold;
+        }
+        .days-label {
+            font-size: 1.2em;
+            color: #555;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Odpočítávání do konce roku</h1>
+        <div id="countdown"></div>
+        <div class="days-label">zbývajících dní</div>
+    </div>
+
+    <script>
+        function updateCountdown() {
+            const now = new Date();
+            const endOfYear = new Date(now.getFullYear(), 11, 31); // 31. prosince aktuálního roku
+            const timeRemaining = endOfYear - now; // Rozdíl v milisekundách
+
+            const days = Math.ceil(timeRemaining / (1000 * 60 * 60 * 24)); // Převod na dny
+
+            document.getElementById('countdown').innerText = days;
+        }
+
+        // Aktualizovat počítadlo ihned po načtení stránky
+        updateCountdown();
+
+        // Aktualizovat počítadlo každý den (v praxi by se toto mohlo spouštět méně často, ale pro jistotu to necháme takto)
+        // SetInterval by byl na dynamickou změnu během dne, pro "dny" stačí jednou denně.
+        // Pro jednoduchost a demo necháme set interval, ale reálně by se to přepočítávalo jen jednou za den
+        setInterval(updateCountdown, 1000 * 60 * 60 * 24); // Aktualizuje se každých 24 hodin
+    </script>
+</body>
+</html>
