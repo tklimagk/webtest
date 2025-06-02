@@ -108,6 +108,7 @@
 </head>
 <body>
 
+    <audio id="background-music" src="music.mp3" autoplay loop></audio>
     <h1>Všechno nejlepší k narozeninám!</h1>
 
     <div id="countdown"></div>
@@ -159,6 +160,16 @@
 
         // Spustit odpočet ihned po načtení stránky
         updateCountdown();
+
+        // Zkusí spustit hudbu po interakci uživatele (pokud ji prohlížeč zablokoval)
+        document.addEventListener('click', function() {
+            const music = document.getElementById('background-music');
+            if (music.paused) {
+                music.play().catch(e => console.log("Hudba se nepodařila přehrát automaticky:", e));
+                // Volitelně, pokud jste použili muted, můžete zde zrušit ztlumení
+                // music.muted = false;
+            }
+        });
     </script>
 
 </body>
