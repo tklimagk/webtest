@@ -3,66 +3,163 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Odpočítávání do konce roku</title>
+    <title>Všechno nejlepší k narozeninám!</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Arial', sans-serif;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
             background-color: #f0f0f0;
+            color: #333;
             margin: 0;
-            flex-direction: column;
+            overflow: hidden; /* Aby obrázky nepřesahovaly snadno */
+            position: relative; /* Pro absolutní pozicování obrázků */
         }
-        .container {
-            background-color: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+        h1 {
+            color: #d9534f;
+            font-size: 3em;
+            margin-bottom: 30px;
             text-align: center;
         }
-        h1 {
-            color: #333;
-            margin-bottom: 20px;
-        }
+
         #countdown {
-            font-size: 3em;
-            color: #007bff;
+            font-size: 4em;
             font-weight: bold;
+            color: #5cb85c;
+            border: 5px solid #5cb85c;
+            border-radius: 50%;
+            padding: 40px;
+            width: 250px;
+            height: 250px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background-color: #fff;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 10; /* Aby bylo počítadlo nahoře */
         }
-        .days-label {
+
+        .image-container {
+            position: absolute;
+            width: 150px; /* Adjust size as needed */
+            height: 150px; /* Adjust size as needed */
+            background-color: rgba(255, 255, 255, 0.7);
+            border-radius: 10px;
+            padding: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 5; /* Pod počítadlem */
+        }
+
+        .image-container img {
+            max-width: 100%;
+            max-height: 100%;
+            display: block;
+        }
+
+        /* Umístění obrázků kolem počítadla */
+        #wheelchair-img { top: 10%; left: 15%; }
+        #canes-img { top: 20%; right: 15%; }
+        #pills-img { bottom: 10%; left: 20%; }
+        #slippers-img { bottom: 20%; right: 20%; }
+        /* Další obrázky můžete přidat a umístit podobně */
+
+        .messages {
+            margin-top: 50px;
             font-size: 1.2em;
-            color: #555;
-            margin-top: 10px;
+            color: #666;
+            text-align: center;
+            max-width: 600px;
+        }
+
+        .messages p {
+            margin: 10px 0;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2em;
+            }
+            #countdown {
+                font-size: 3em;
+                width: 200px;
+                height: 200px;
+                padding: 20px;
+            }
+            .image-container {
+                width: 100px;
+                height: 100px;
+            }
+            /* Upravte pozice obrázků pro menší obrazovky */
+            #wheelchair-img { top: 5%; left: 5%; }
+            #canes-img { top: 10%; right: 5%; }
+            #pills-img { bottom: 5%; left: 5%; }
+            #slippers-img { bottom: 10%; right: 5%; }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Odpočítávání do konce roku</h1>
-        <div id="countdown"></div>
-        <div class="days-label">zbývajících dní</div>
+
+    <h1>Všechno nejlepší k narozeninám!</h1>
+
+    <div id="countdown"></div>
+
+    <div id="wheelchair-img" class="image-container">
+        <img src="images/wheel-159291_640.jpg" alt="Muž na vozíčku">
+    </div>
+    <div id="canes-img" class="image-container">
+        <img src="images/siluety-na-hole-a-berle-vektor-400-22234459.jpg" alt="Různé hole a berle">
+    </div>
+    <div id="pills-img" class="image-container">
+        <img src="images/istockphoto-1421579808-612x612.jpg" alt="Hromada pilulek">
+    </div>
+    <div id="slippers-img" class="image-container">
+        <img src="images/_vyrp11_5756Vysoke-teple-papuce-damske-T47-2.jpg" alt="Teplé papuče">
+    </div>
+
+    <div class="messages">
+        <p>„Pokud si to takhle opravdu přeješ, pak se ti to splní.“</p>
+        <p>„Počkej do konce odpočtu, třeba zjistíš, že to tak být nemusí.“</p>
     </div>
 
     <script>
+        // Nastavíme cílové datum na 10. června 2026
+        const targetDate = new Date('2026-06-10T00:00:00').getTime();
+
+        const countdownElement = document.getElementById('countdown');
+
         function updateCountdown() {
-            const now = new Date();
-            const endOfYear = new Date(now.getFullYear(), 11, 31); // 31. prosince aktuálního roku
-            const timeRemaining = endOfYear - now; // Rozdíl v milisekundách
+            const now = new Date().getTime();
+            const distance = targetDate - now;
 
-            const days = Math.ceil(timeRemaining / (1000 * 60 * 60 * 24)); // Převod na dny
+            // Výpočty pro dny, hodiny, minuty a sekundy
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-            document.getElementById('countdown').innerText = days;
+            if (distance < 0) {
+                clearInterval(countdownInterval);
+                countdownElement.innerHTML = "Všechno nejlepší!";
+            } else {
+                countdownElement.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+            }
         }
 
-        // Aktualizovat počítadlo ihned po načtení stránky
-        updateCountdown();
+        // Aktualizovat odpočet každou sekundu
+        const countdownInterval = setInterval(updateCountdown, 1000);
 
-        // Aktualizovat počítadlo každý den (v praxi by se toto mohlo spouštět méně často, ale pro jistotu to necháme takto)
-        // SetInterval by byl na dynamickou změnu během dne, pro "dny" stačí jednou denně.
-        // Pro jednoduchost a demo necháme set interval, ale reálně by se to přepočítávalo jen jednou za den
-        setInterval(updateCountdown, 1000 * 60 * 60 * 24); // Aktualizuje se každých 24 hodin
+        // Spustit odpočet ihned po načtení stránky
+        updateCountdown();
     </script>
+
 </body>
 </html>
