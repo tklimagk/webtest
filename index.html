@@ -47,8 +47,9 @@
 
         .image-container {
             position: absolute;
-            width: 150px; /* Adjust size as needed */
-            height: 150px; /* Adjust size as needed */
+            /* ZVĚTŠENÍ OBRÁZKŮ ZDE */
+            width: 200px; /* Původně 150px */
+            height: 200px; /* Původně 150px */
             background-color: rgba(255, 255, 255, 0.7);
             border-radius: 10px;
             padding: 10px;
@@ -66,6 +67,7 @@
         }
 
         /* Umístění obrázků kolem počítadla */
+        /* Možná budeš chtít upravit i tyto pozice, aby se obrázky nepřekrývaly s počítadlem nebo se nepřehledně nepřekrývaly navzájem, když jsou větší. */
         #wheelchair-img { top: 10%; left: 15%; }
         #canes-img { top: 20%; right: 15%; }
         #pills-img { bottom: 10%; left: 20%; }
@@ -95,8 +97,9 @@
                 padding: 20px;
             }
             .image-container {
-                width: 100px;
-                height: 100px;
+                /* ZVĚTŠENÍ OBRÁZKŮ ZDE PRO MENŠÍ OBRAZOVKY */
+                width: 150px; /* Původně 100px */
+                height: 150px; /* Původně 100px */
             }
             /* Upravte pozice obrázků pro menší obrazovky */
             #wheelchair-img { top: 5%; left: 5%; }
@@ -108,7 +111,12 @@
 </head>
 <body>
 
-    <audio id="background-music" src="music.mp3" autoplay loop></audio>
+    <audio id="background-music" src="music.mp3" autoplay loop muted></audio>
+    <button id="toggle-music" style="position: fixed; top: 10px; right: 10px; padding: 10px; background-color: #5cb85c; color: white; border: none; border-radius: 5px; cursor: pointer; z-index: 999;">
+        🎵 Přehrát zvuk
+    </button>
+
+
     <h1>Všechno nejlepší k narozeninám!</h1>
 
     <div id="countdown"></div>
@@ -161,15 +169,45 @@
         // Spustit odpočet ihned po načtení stránky
         updateCountdown();
 
-        // Zkusí spustit hudbu po interakci uživatele (pokud ji prohlížeč zablokoval)
-        document.addEventListener('click', function() {
-            const music = document.getElementById('background-music');
-            if (music.paused) {
-                music.play().catch(e => console.log("Hudba se nepodařila přehrát automaticky:", e));
-                // Volitelně, pokud jste použili muted, můžete zde zrušit ztlumení
-                // music.muted = false;
+        // Hudba
+        const music = document.getElementById('background-music');
+        const toggleMusicButton = document.getElementById('toggle-music');
+
+        function updateButtonText() {
+            if (music.muted) {
+                toggleMusicButton.textContent = '🎵 Přehrát zvuk';
+            } else {
+                toggleMusicButton.textContent = '🔇 Ztlumit zvuk';
             }
+        }
+
+        // Zkusí spustit hudbu (protože je muted, mělo by se povést)
+        music.play().catch(e => {
+            console.log("Hudba se nepodařila přehrát automaticky (pravděpodobně kvůli politice prohlížeče):", e);
         });
+
+        // Při prvním kliknutí na stránku se pokusíme hudbu odtlumit
+        document.addEventListener('click', function() {
+            if (music.muted) { // Pokud je ztlumená, odtlumíme ji
+                music.muted = false;
+                music.play().catch(e => console.log("Chyba při přehrávání zvuku po kliknutí (odtlumení):", e));
+            }
+            updateButtonText();
+        }, { once: true }); // Spustí se jen jednou
+
+        // Obsluha tlačítka pro zapnutí/vypnutí zvuku
+        toggleMusicButton.addEventListener('click', function() {
+            if (music.paused) { // Pokud je pozastavená, zkusíme přehrát a odtlumit
+                music.muted = false;
+                music.play().catch(e => console.log("Chyba při přehrávání zvuku po kliknutí na tlačítko (play):", e));
+            } else { // Jinak, pokud hraje, přepínáme ztlumení
+                music.muted = !music.muted;
+            }
+            updateButtonText();
+        });
+
+        // Počáteční nastavení textu tlačítka
+        updateButtonText();
     </script>
 
 </body>
