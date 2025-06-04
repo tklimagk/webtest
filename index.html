@@ -12,15 +12,15 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            background-color: #f0f0f0;
-            color: #333;
+            background-color: #f7f1e3; /* Světle krémová/béžová */
+            color: #4a4a4a; /* Tmavě šedá pro text */
             margin: 0;
-            overflow: hidden; /* Aby obrázky nepřesahovaly snadno */
-            position: relative; /* Pro absolutní pozicování obrázků */
+            overflow: hidden;
+            position: relative;
         }
 
         h1 {
-            color: #d9534f;
+            color: #e07a5f; /* Korálová/oranžová */
             font-size: 3em;
             margin-bottom: 30px;
             text-align: center;
@@ -29,8 +29,8 @@
         #countdown {
             font-size: 4em;
             font-weight: bold;
-            color: #5cb85c;
-            border: 5px solid #5cb85c;
+            color: #8ac08d; /* Světle zelená */
+            border: 5px solid #8ac08d;
             border-radius: 50%;
             padding: 40px;
             width: 250px;
@@ -39,17 +39,16 @@
             justify-content: center;
             align-items: center;
             text-align: center;
-            background-color: #fff;
+            background-color: #ffffff; /* Bílá */
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
             position: relative;
-            z-index: 10; /* Aby bylo počítadlo nahoře */
+            z-index: 10;
         }
 
         .image-container {
             position: absolute;
-            /* ZVĚTŠENÍ OBRÁZKŮ ZDE */
-            width: 200px; /* Původně 150px */
-            height: 200px; /* Původně 150px */
+            width: 200px;
+            height: 200px;
             background-color: rgba(255, 255, 255, 0.7);
             border-radius: 10px;
             padding: 10px;
@@ -57,7 +56,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            z-index: 5; /* Pod počítadlem */
+            z-index: 5;
         }
 
         .image-container img {
@@ -67,17 +66,15 @@
         }
 
         /* Umístění obrázků kolem počítadla */
-        /* Možná budeš chtít upravit i tyto pozice, aby se obrázky nepřekrývaly s počítadlem nebo se nepřehledně nepřekrývaly navzájem, když jsou větší. */
         #wheelchair-img { top: 10%; left: 15%; }
         #canes-img { top: 20%; right: 15%; }
         #pills-img { bottom: 10%; left: 20%; }
         #slippers-img { bottom: 20%; right: 20%; }
-        /* Další obrázky můžete přidat a umístit podobně */
 
         .messages {
             margin-top: 50px;
             font-size: 1.2em;
-            color: #666;
+            color: #6a6a6a; /* Tmavší šedá pro sdělení */
             text-align: center;
             max-width: 600px;
         }
@@ -86,22 +83,23 @@
             margin: 10px 0;
         }
 
+        #toggle-music {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            padding: 10px;
+            background-color: #8ac08d; /* Světle zelená jako počítadlo */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            z-index: 999;
+        }
+
         @media (max-width: 768px) {
-            h1 {
-                font-size: 2em;
-            }
-            #countdown {
-                font-size: 3em;
-                width: 200px;
-                height: 200px;
-                padding: 20px;
-            }
-            .image-container {
-                /* ZVĚTŠENÍ OBRÁZKŮ ZDE PRO MENŠÍ OBRAZOVKY */
-                width: 150px; /* Původně 100px */
-                height: 150px; /* Původně 100px */
-            }
-            /* Upravte pozice obrázků pro menší obrazovky */
+            h1 { font-size: 2em; }
+            #countdown { font-size: 3em; width: 200px; height: 200px; padding: 20px; }
+            .image-container { width: 150px; height: 150px; }
             #wheelchair-img { top: 5%; left: 5%; }
             #canes-img { top: 10%; right: 5%; }
             #pills-img { bottom: 5%; left: 5%; }
@@ -110,15 +108,10 @@
     </style>
 </head>
 <body>
-
     <audio id="background-music" src="music.mp3" autoplay loop muted></audio>
-    <button id="toggle-music" style="position: fixed; top: 10px; right: 10px; padding: 10px; background-color: #5cb85c; color: white; border: none; border-radius: 5px; cursor: pointer; z-index: 999;">
-        🎵 Přehrát zvuk
-    </button>
-
+    <button id="toggle-music">🎵 Přehrát zvuk</button>
 
     <h1>Všechno nejlepší k narozeninám!</h1>
-
     <div id="countdown"></div>
 
     <div id="wheelchair-img" class="image-container">
@@ -140,21 +133,15 @@
     </div>
 
     <script>
-        // Nastavíme cílové datum na 10. června 2026
         const targetDate = new Date('2026-06-10T00:00:00').getTime();
-
         const countdownElement = document.getElementById('countdown');
-
         function updateCountdown() {
             const now = new Date().getTime();
             const distance = targetDate - now;
-
-            // Výpočty pro dny, hodiny, minuty a sekundy
             const days = Math.floor(distance / (1000 * 60 * 60 * 24));
             const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
             if (distance < 0) {
                 clearInterval(countdownInterval);
                 countdownElement.innerHTML = "Všechno nejlepší!";
@@ -162,17 +149,11 @@
                 countdownElement.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
             }
         }
-
-        // Aktualizovat odpočet každou sekundu
         const countdownInterval = setInterval(updateCountdown, 1000);
-
-        // Spustit odpočet ihned po načtení stránky
         updateCountdown();
 
-        // Hudba
         const music = document.getElementById('background-music');
         const toggleMusicButton = document.getElementById('toggle-music');
-
         function updateButtonText() {
             if (music.muted) {
                 toggleMusicButton.textContent = '🎵 Přehrát zvuk';
@@ -180,35 +161,17 @@
                 toggleMusicButton.textContent = '🔇 Ztlumit zvuk';
             }
         }
-
-        // Zkusí spustit hudbu (protože je muted, mělo by se povést)
-        music.play().catch(e => {
-            console.log("Hudba se nepodařila přehrát automaticky (pravděpodobně kvůli politice prohlížeče):", e);
-        });
-
-        // Při prvním kliknutí na stránku se pokusíme hudbu odtlumit
+        music.play().catch(e => { console.log("Hudba se nepodařila přehrát automaticky (pravděpodobně kvůli politice prohlížeče):", e); });
         document.addEventListener('click', function() {
-            if (music.muted) { // Pokud je ztlumená, odtlumíme ji
-                music.muted = false;
-                music.play().catch(e => console.log("Chyba při přehrávání zvuku po kliknutí (odtlumení):", e));
-            }
+            if (music.muted) { music.muted = false; music.play().catch(e => console.log("Chyba při přehrávání zvuku po kliknutí (odtlumení):", e)); }
             updateButtonText();
-        }, { once: true }); // Spustí se jen jednou
-
-        // Obsluha tlačítka pro zapnutí/vypnutí zvuku
+        }, { once: true });
         toggleMusicButton.addEventListener('click', function() {
-            if (music.paused) { // Pokud je pozastavená, zkusíme přehrát a odtlumit
-                music.muted = false;
-                music.play().catch(e => console.log("Chyba při přehrávání zvuku po kliknutí na tlačítko (play):", e));
-            } else { // Jinak, pokud hraje, přepínáme ztlumení
-                music.muted = !music.muted;
-            }
+            if (music.paused) { music.muted = false; music.play().catch(e => console.log("Chyba při přehrávání zvuku po kliknutí na tlačítko (play):", e)); }
+            else { music.muted = !music.muted; }
             updateButtonText();
         });
-
-        // Počáteční nastavení textu tlačítka
         updateButtonText();
     </script>
-
 </body>
 </html>
