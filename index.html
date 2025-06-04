@@ -12,38 +12,63 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            background-color: #ffeaa7; /* Světle žlutá/krémová */
-            color: #3d3d3d; /* Tmavě šedá */
+            background-color: #f7f1e3; /* Světle krémová/béžová - Varianta 1 */
+            color: #4a4a4a; /* Tmavě šedá pro text */
             margin: 0;
             overflow: hidden;
             position: relative;
         }
 
-        h1 {
-            color: #e84393; /* Sytě růžová/purpurová */
-            font-size: 3em;
-            margin-bottom: 30px;
+        #countdown-box {
+            background-color: #ffffff;
+            border: 3px solid #8ac08d; /* Barva rámečku odpočtu */
+            border-radius: 10px;
+            padding: 15px 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
             text-align: center;
+            position: relative; /* Aby se z-index aplikoval */
+            z-index: 100; /* Bude nejvýše */
         }
 
         #countdown {
-            font-size: 4em;
+            font-size: 2.5em; /* Zmenšený font pro odpočet */
             font-weight: bold;
-            color: #00b894; /* Tyrkysová/zelená */
-            border: 5px solid #00b894;
-            border-radius: 50%;
-            padding: 40px;
-            width: 250px;
-            height: 250px;
+            color: #8ac08d; /* Světle zelená - Varianta 1 */
+        }
+
+        h1 {
+            color: #e07a5f; /* Korálová/oranžová - Varianta 1 */
+            font-size: 3em;
+            margin-bottom: 30px;
+            text-align: center;
+            z-index: 10;
+        }
+
+        #gravestone-img {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%); /* Centrování */
+            width: 350px; /* Větší velikost pro dominantní obrázek */
+            height: auto; /* Zachování poměru stran */
+            max-width: 80%; /* Aby se vešel na menší obrazovky */
+            z-index: 20; /* Bude nad ostatními malými obrázky, ale pod odpočtem */
+            background-color: rgba(255, 255, 255, 0.8); /* Lehce průhledné pozadí za obrázkem */
+            border-radius: 15px;
+            box-shadow: 0 0 25px rgba(0, 0, 0, 0.2);
+            padding: 15px;
             display: flex;
             justify-content: center;
             align-items: center;
-            text-align: center;
-            background-color: #ffffff; /* Bílá */
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-            position: relative;
-            z-index: 10;
         }
+
+        #gravestone-img img {
+            max-width: 100%;
+            max-height: 100%;
+            display: block;
+        }
+
 
         .image-container {
             position: absolute;
@@ -56,7 +81,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            z-index: 5;
+            z-index: 5; /* Pod hlavním obrázkem a počítadlem */
         }
 
         .image-container img {
@@ -65,18 +90,24 @@
             display: block;
         }
 
-        /* Umístění obrázků kolem počítadla */
-        #wheelchair-img { top: 10%; left: 15%; }
-        #canes-img { top: 20%; right: 15%; }
-        #pills-img { bottom: 10%; left: 20%; }
-        #slippers-img { bottom: 20%; right: 20%; }
+        /* Upravené umístění ostatních obrázků, aby nekolidovaly s náhrobkem */
+        #wheelchair-img { top: 15%; left: 5%; }
+        #canes-img { top: 15%; right: 5%; }
+        #pills-img { bottom: 15%; left: 5%; }
+        #slippers-img { bottom: 15%; right: 5%; }
 
         .messages {
-            margin-top: 50px;
+            margin-top: auto; /* Posune zprávy na dno */
+            margin-bottom: 30px; /* Odsazení od spodního okraje */
             font-size: 1.2em;
-            color: #555555; /* Šedá */
+            color: #6a6a6a; /* Tmavší šedá pro sdělení - Varianta 1 */
             text-align: center;
             max-width: 600px;
+            z-index: 10; /* Aby byly nad pozadím, ale pod hlavním obrázkem */
+            background-color: rgba(255, 255, 255, 0.7); /* Lehké pozadí pro čitelnost */
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.05);
         }
 
         .messages p {
@@ -88,7 +119,7 @@
             top: 10px;
             right: 10px;
             padding: 10px;
-            background-color: #00b894; /* Tyrkysová/zelená jako počítadlo */
+            background-color: #8ac08d; /* Světle zelená - Varianta 1 */
             color: white;
             border: none;
             border-radius: 5px;
@@ -98,12 +129,19 @@
 
         @media (max-width: 768px) {
             h1 { font-size: 2em; }
-            #countdown { font-size: 3em; width: 200px; height: 200px; padding: 20px; }
-            .image-container { width: 150px; height: 150px; }
-            #wheelchair-img { top: 5%; left: 5%; }
-            #canes-img { top: 10%; right: 5%; }
-            #pills-img { bottom: 5%; left: 5%; }
-            #slippers-img { bottom: 10%; right: 5%; }
+            #countdown-box { padding: 10px 20px; }
+            #countdown { font-size: 2em; }
+            #gravestone-img {
+                width: 80%; /* Více se přizpůsobí malé obrazovce */
+                padding: 10px;
+            }
+            .image-container { width: 120px; height: 120px; } /* Menší pro mobily */
+            /* Upravte pozice obrázků pro menší obrazovky */
+            #wheelchair-img { top: 10%; left: 2%; }
+            #canes-img { top: 10%; right: 2%; }
+            #pills-img { bottom: 10%; left: 2%; }
+            #slippers-img { bottom: 10%; right: 2%; }
+            .messages { font-size: 1em; margin-bottom: 20px; padding: 10px; }
         }
     </style>
 </head>
@@ -111,8 +149,15 @@
     <audio id="background-music" src="music.mp3" autoplay loop muted></audio>
     <button id="toggle-music">🎵 Přehrát zvuk</button>
 
+    <div id="countdown-box">
+        <div id="countdown"></div>
+    </div>
+
     <h1>Všechno nejlepší k narozeninám!</h1>
-    <div id="countdown"></div>
+
+    <div id="gravestone-img">
+        <img src="images/nahrobni_kamen.jpg" alt="Náhrobní kámen">
+    </div>
 
     <div id="wheelchair-img" class="image-container">
         <img src="images/wheel-159291_640.jpg" alt="Muž na vozíčku">
@@ -133,15 +178,18 @@
     </div>
 
     <script>
-        const targetDate = new Date('2026-06-10T00:00:00').getTime();
+        const targetDate = new Date('2026-06-10T00:00:00').getTime(); // Cílové datum narozenin
         const countdownElement = document.getElementById('countdown');
+
         function updateCountdown() {
             const now = new Date().getTime();
             const distance = targetDate - now;
+
             const days = Math.floor(distance / (1000 * 60 * 60 * 24));
             const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
             if (distance < 0) {
                 clearInterval(countdownInterval);
                 countdownElement.innerHTML = "Všechno nejlepší!";
@@ -152,8 +200,10 @@
         const countdownInterval = setInterval(updateCountdown, 1000);
         updateCountdown();
 
+        // Hudba
         const music = document.getElementById('background-music');
         const toggleMusicButton = document.getElementById('toggle-music');
+
         function updateButtonText() {
             if (music.muted) {
                 toggleMusicButton.textContent = '🎵 Přehrát zvuk';
@@ -161,6 +211,7 @@
                 toggleMusicButton.textContent = '🔇 Ztlumit zvuk';
             }
         }
+
         music.play().catch(e => { console.log("Hudba se nepodařila přehrát automaticky (pravděpodobně kvůli politice prohlížeče):", e); });
         document.addEventListener('click', function() {
             if (music.muted) { music.muted = false; music.play().catch(e => console.log("Chyba při přehrávání zvuku po kliknutí (odtlumení):", e)); }
