@@ -12,8 +12,8 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            background-color: #f7f1e3; /* Světle krémová/béžová - Varianta 1 */
-            color: #4a4a4a; /* Tmavě šedá pro text */
+            background-color: #ffeaa7; /* Světle žlutá/krémová - Varianta 2 */
+            color: #3d3d3d; /* Tmavě šedá */
             margin: 0;
             overflow: hidden;
             position: relative;
@@ -21,24 +21,24 @@
 
         #countdown-box {
             background-color: #ffffff;
-            border: 3px solid #8ac08d; /* Barva rámečku odpočtu */
+            border: 3px solid #00b894; /* Tyrkysová/zelená - Varianta 2 */
             border-radius: 10px;
             padding: 15px 30px;
             margin-bottom: 20px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
             text-align: center;
-            position: relative; /* Aby se z-index aplikoval */
-            z-index: 100; /* Bude nejvýše */
+            position: relative;
+            z-index: 100;
         }
 
         #countdown {
-            font-size: 2.5em; /* Zmenšený font pro odpočet */
+            font-size: 2.5em;
             font-weight: bold;
-            color: #8ac08d; /* Světle zelená - Varianta 1 */
+            color: #00b894; /* Tyrkysová/zelená - Varianta 2 */
         }
 
         h1 {
-            color: #e07a5f; /* Korálová/oranžová - Varianta 1 */
+            color: #e84393; /* Sytě růžová/purpurová - Varianta 2 */
             font-size: 3em;
             margin-bottom: 30px;
             text-align: center;
@@ -49,12 +49,12 @@
             position: absolute;
             top: 50%;
             left: 50%;
-            transform: translate(-50%, -50%); /* Centrování */
-            width: 350px; /* Větší velikost pro dominantní obrázek */
-            height: auto; /* Zachování poměru stran */
-            max-width: 80%; /* Aby se vešel na menší obrazovky */
-            z-index: 20; /* Bude nad ostatními malými obrázky, ale pod odpočtem */
-            background-color: rgba(255, 255, 255, 0.8); /* Lehce průhledné pozadí za obrázkem */
+            transform: translate(-50%, -50%);
+            width: 350px;
+            height: auto;
+            max-width: 80%;
+            z-index: 20;
+            background-color: rgba(255, 255, 255, 0.8);
             border-radius: 15px;
             box-shadow: 0 0 25px rgba(0, 0, 0, 0.2);
             padding: 15px;
@@ -81,7 +81,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            z-index: 5; /* Pod hlavním obrázkem a počítadlem */
+            z-index: 5;
         }
 
         .image-container img {
@@ -90,21 +90,21 @@
             display: block;
         }
 
-        /* Upravené umístění ostatních obrázků, aby nekolidovaly s náhrobkem */
+        /* Umístění ostatních obrázků */
         #wheelchair-img { top: 15%; left: 5%; }
         #canes-img { top: 15%; right: 5%; }
         #pills-img { bottom: 15%; left: 5%; }
         #slippers-img { bottom: 15%; right: 5%; }
 
         .messages {
-            margin-top: auto; /* Posune zprávy na dno */
-            margin-bottom: 30px; /* Odsazení od spodního okraje */
+            margin-top: auto;
+            margin-bottom: 30px;
             font-size: 1.2em;
-            color: #6a6a6a; /* Tmavší šedá pro sdělení - Varianta 1 */
+            color: #555555; /* Šedá - Varianta 2 */
             text-align: center;
             max-width: 600px;
-            z-index: 10; /* Aby byly nad pozadím, ale pod hlavním obrázkem */
-            background-color: rgba(255, 255, 255, 0.7); /* Lehké pozadí pro čitelnost */
+            z-index: 10;
+            background-color: rgba(255, 255, 255, 0.7);
             padding: 15px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0,0,0,0.05);
@@ -119,7 +119,7 @@
             top: 10px;
             right: 10px;
             padding: 10px;
-            background-color: #8ac08d; /* Světle zelená - Varianta 1 */
+            background-color: #00b894; /* Tyrkysová/zelená - Varianta 2 */
             color: white;
             border: none;
             border-radius: 5px;
@@ -132,11 +132,10 @@
             #countdown-box { padding: 10px 20px; }
             #countdown { font-size: 2em; }
             #gravestone-img {
-                width: 80%; /* Více se přizpůsobí malé obrazovce */
+                width: 80%;
                 padding: 10px;
             }
-            .image-container { width: 120px; height: 120px; } /* Menší pro mobily */
-            /* Upravte pozice obrázků pro menší obrazovky */
+            .image-container { width: 120px; height: 120px; }
             #wheelchair-img { top: 10%; left: 2%; }
             #canes-img { top: 10%; right: 2%; }
             #pills-img { bottom: 10%; left: 2%; }
@@ -178,13 +177,15 @@
     </div>
 
     <script>
-        const targetDate = new Date('2026-06-10T00:00:00').getTime(); // Cílové datum narozenin
+        // Cílové datum je 10. červen 2026
+        const targetDate = new Date('2026-06-10T00:00:00').getTime();
         const countdownElement = document.getElementById('countdown');
 
         function updateCountdown() {
             const now = new Date().getTime();
             const distance = targetDate - now;
 
+            // Výpočty pro dny, hodiny, minuty a sekundy
             const days = Math.floor(distance / (1000 * 60 * 60 * 24));
             const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
@@ -197,7 +198,9 @@
                 countdownElement.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
             }
         }
+        // Aktualizovat odpočet každou sekundu
         const countdownInterval = setInterval(updateCountdown, 1000);
+        // Spustit odpočet ihned po načtení stránky
         updateCountdown();
 
         // Hudba
@@ -212,14 +215,26 @@
             }
         }
 
+        // Zkusí spustit hudbu (protože je muted, mělo by se povést)
         music.play().catch(e => { console.log("Hudba se nepodařila přehrát automaticky (pravděpodobně kvůli politice prohlížeče):", e); });
+        
+        // Při prvním kliknutí na stránku se pokusíme hudbu odtlumit
         document.addEventListener('click', function() {
-            if (music.muted) { music.muted = false; music.play().catch(e => console.log("Chyba při přehrávání zvuku po kliknutí (odtlumení):", e)); }
+            if (music.muted) { 
+                music.muted = false; 
+                music.play().catch(e => console.log("Chyba při přehrávání zvuku po kliknutí (odtlumení):", e)); 
+            }
             updateButtonText();
-        }, { once: true });
+        }, { once: true }); // Spustí se jen jednou
+        
+        // Obsluha tlačítka pro zapnutí/vypnutí zvuku
         toggleMusicButton.addEventListener('click', function() {
-            if (music.paused) { music.muted = false; music.play().catch(e => console.log("Chyba při přehrávání zvuku po kliknutí na tlačítko (play):", e)); }
-            else { music.muted = !music.muted; }
+            if (music.paused) { 
+                music.muted = false; 
+                music.play().catch(e => console.log("Chyba při přehrávání zvuku po kliknutí na tlačítko (play):", e)); 
+            } else { 
+                music.muted = !music.muted; 
+            }
             updateButtonText();
         });
         updateButtonText();
